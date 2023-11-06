@@ -92,6 +92,7 @@ def predict_tumor(workflow_dir: str, model_name: str, output_dir: str, accelerat
         os.environ["nnUNet_results"] = NNUNET_RESULTS_FOLDER
         subprocess.run(command, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=os.environ)
 
+
         mask_path = get_files(output_dir, '.nii.gz')[0]
 
         # Retain only the tumor label
