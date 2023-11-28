@@ -74,12 +74,12 @@ TRACER_WORKFLOWS = {
                     'CT': '0001.nii.gz'
                 }
             },
-            # 'pet': {
-            #     'tumor_label': 11,  # Adjust this if the tumor label is different for the 'pet' workflow
-            #     'channels': {
-            #         'PT': '0000.nii.gz'
-            #     }
-            # }
+             'pet': {
+                 'tumor_label': 11,  # Adjust this if the tumor label is different for the 'pet' workflow
+                 'channels': {
+                     'PT': '0000.nii.gz'
+                 }
+             }
         }
     },
     'psma': {
@@ -246,16 +246,16 @@ RULES = {
     "fdg": {
         'pet_ct': {
             'rule_func': (has_label_above_threshold, {"threshold": 10}),  # flush everything below 10 voxels
-            #'action_on_true': 'delete_mask_and_continue',
-            #'action_on_false': 'stop'
+            'action_on_true': 'delete_mask_and_continue',
+            'action_on_false': 'stop'
             'action_on_true': 'stop',
             'action_on_false': 'stop'
         },
-        # 'pet': {
-        #     'rule_func': (has_label_above_threshold, {"threshold": 10}),
-        #     'action_on_true': 'continue',
-        #     'action_on_false': 'continue'
-        # }
+        'pet': {
+            'rule_func': (has_label_above_threshold, {"threshold": 10}),
+            'action_on_true': 'continue',
+            'action_on_false': 'continue'
+        }
     }
     # Add more rules for different tracers and workflows as necessary.
 }
