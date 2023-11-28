@@ -248,8 +248,6 @@ RULES = {
             'rule_func': (has_label_above_threshold, {"threshold": 10}),  # flush everything below 10 voxels
             'action_on_true': 'delete_mask_and_continue',
             'action_on_false': 'stop'
-            'action_on_true': 'stop',
-            'action_on_false': 'stop'
         },
         'pet': {
             'rule_func': (has_label_above_threshold, {"threshold": 10}),
