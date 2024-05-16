@@ -86,6 +86,7 @@ TRACER_WORKFLOWS = {
         'reference_modality': 'PT',  # You can change this for psma if needed
         'workflows': {
             'pet': {
+                'tumor_label': 6,
                 'channels': {
                     'PT': '0000.nii.gz'
                 }
@@ -111,30 +112,36 @@ TRACER_WORKFLOWS = {
 MODELS = {
     "fdg": [
         {
-            "url": "https://lionz.s3.eu.cloud-object-storage.appdomain.cloud/clin_pt_fdg_ct_2000epochs.zip",
-            "filename": "Dataset789_Tumors_all_organs_LION.zip",
-            "directory": "Dataset789_Tumors_all_organs_LION",
+            "url": "https://enhance-pet.s3.eu-central-1.amazonaws.com/lion/clin_pt_fdg_ct_2000epochs.zip",
+            "filename": "Dataset804_Tumors_all_organs_LION.zip",
+            "directory": "Dataset804_Tumors_all_organs_LION",
             "trainer": "nnUNetTrainerDA5_2000epochs",
             "voxel_spacing": [3, 3, 3],
-            "multilabel_prefix": "fdg_tumor_01_"
+            "multilabel_prefix": "fdg_tumor_01_",
+            "plans": "nnUNetPlans",
+            "configuration": "3d_fullres"
         },
         {
-            "url": "https://lionz.s3.eu.cloud-object-storage.appdomain.cloud/clin_pt_fdg_tumor_16082023.zip",
-            "filename": "Dataset804_Tumors_all_organs.zip",
-            "directory": "Dataset804_Tumors_all_organs",
+            "url": "https://enhance-pet.s3.eu-central-1.amazonaws.com/lion/clin_pt_fdg_cancer_only_DA_30102023.zip",
+            "filename": "Dataset789_Tumors_all_organs.zip",
+            "directory": "Dataset789_Tumors_all_organs",
             "trainer": "nnUNetTrainerDA5",
             "voxel_spacing": [3, 3, 3],
-            "multilabel_prefix": "fdg_tumor_"
+            "multilabel_prefix": "fdg_tumor_",
+            "plans": "nnUNetPlans",
+            "configuration": "3d_fullres"
         }
     ],
     "psma": [
         {
-            "url": "PLACEHOLDER_URL_FOR_MODEL",
-            "filename": "PLACEHOLDER_FILENAME",
-            "directory": "PLACEHOLDER_DIRECTORY",
-            "trainer": "PLACEHOLDER_TRAINER",
-            "voxel_spacing": ["PLACEHOLDER_X", "PLACEHOLDER_Y", "PLACEHOLDER_Z"],
-            "multilabel_prefix": "PLACEHOLDER_PREFIX"
+            "url": "https://enhance-pet.s3.eu-central-1.amazonaws.com/lion/clin_pt_resenc_PSMA550_30042024.zip",
+            "filename": "Dataset711_PSMA.zip",
+            "directory": "Dataset711_PSMA",
+            "trainer": "nnUNetTrainer",
+            "voxel_spacing": [3, 3, 3],
+            "multilabel_prefix": "psma_tumor",
+            "plans": "nnUNetResEncUNetLPlans",
+            "configuration": "3d_fullres"
         }
     ],
     # Add more tracers as needed, following the same structure
@@ -174,9 +181,9 @@ def map_model_name_to_task_number(model_name: str) -> dict:
     :return: A dictionary of workflows and their associated task numbers.
     """
     if model_name == "fdg":
-        return {'pet_ct': '789', 'pet': '804'}
+        return {'pet_ct': '804', 'pet': '789'}
     elif model_name == "psma":
-        return {'workflow_name_placeholder': '444'}  # replace 'workflow_name_placeholder' with the actual workflow name
+        return {'pet': '711'}  # replace 'workflow_name_placeholder' with the actual workflow name
     else:
         raise Exception(f"Error: The model name '{model_name}' is not valid.")
 
